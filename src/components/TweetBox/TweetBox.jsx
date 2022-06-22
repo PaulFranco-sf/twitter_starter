@@ -7,8 +7,8 @@ export default function TweetBox({userProfile, setTweets, tweets, setTweetText, 
     setTweetText(event.target.value)
   }
 
+  let tweetLength = tweetText.length
   function handleOnSubmit() {
-
      const newTweet = { 
       name: userProfile.name, 
       handle: userProfile.handle,
@@ -17,7 +17,6 @@ export default function TweetBox({userProfile, setTweets, tweets, setTweetText, 
       retweets: 0,
       likes: 0,
       id: 1,}
-    console.log(newTweet.text)
      setTweets([...tweets, newTweet])
      setTweetText("")
     }
@@ -28,8 +27,8 @@ export default function TweetBox({userProfile, setTweets, tweets, setTweetText, 
 
       <div className="tweet-box-footer">
         <TweetBoxIcons />
-        <TweetCharacterCount />
-        <TweetSubmitButton handleOnSubmit={handleOnSubmit}/>
+        <TweetCharacterCount tweetText={tweetText} tweetLength={tweetLength}/>
+        <TweetSubmitButton tweetLength={tweetLength} handleOnSubmit={handleOnSubmit}/>
       </div>
     </div>
   )
@@ -46,16 +45,28 @@ export function TweetBoxIcons() {
   )
 }
 
-export function TweetCharacterCount(props) {
-  // ADD CODE HERE
-  return <span></span>
+export function TweetCharacterCount({ tweetText, tweetLength }) {
+  let remainingCharacters;
+  let isRed = ""
+  if (tweetLength){
+    remainingCharacters = 140 - tweetLength
+  }
+  if (remainingCharacters > 0){
+    isRed = "className'red'";
+  }
+  
+  return <span>{remainingCharacters}</span>
 }
 
-export function TweetSubmitButton({handleOnSubmit}) {
+export function TweetSubmitButton({handleOnSubmit, tweetLength}) {
+  let isDisabled = false
+  if (tweetLength === 0 || tweetLength > 140){
+    isDisabled = true
+  }
   return (
     <div className="tweet-submit">
       <i className="fas fa-plus-circle"></i>
-      <button className="tweet-submit-button" onClick={handleOnSubmit}>Tweet</button>
+      <button className="tweet-submit-button" disabled={isDisabled} onClick={handleOnSubmit}>Tweet</button>
     </div>
   )
 }
