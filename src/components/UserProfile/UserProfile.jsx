@@ -7,12 +7,13 @@ export default function UserProfile({ userProfile }) {
     <div className="col user-profile">
       <div className="card">
         <div className="card-bg" />
-        <CardContent />
-        <CardFooter />
+        <CardContent name={userProfile.name} handle={userProfile.handle}/>
+        <CardFooter numTweets={userProfile.numTweets} numFollowers={userProfile.numFollowers} />
       </div>
     </div>
   )
 }
+//console.log(userProfile)
 
 export function CardContent(props) {
   return (
@@ -40,3 +41,4 @@ export function CardFooter(props) {
     </div>
   )
 }
+
