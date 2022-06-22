@@ -2,23 +2,29 @@ import * as React from "react"
 import TweetInput from "./TweetInput"
 import "./TweetBox.css"
 
-export default function TweetBox({userProfile, setTweets, tweets}) {
-  
+export default function TweetBox({userProfile, setTweets, tweets, setTweetText, tweetText}) {
+  function handleOnTweetTextChange(event){
+    setTweetText(event.target.value)
+  }
+
   function handleOnSubmit() {
+
      const newTweet = { 
       name: userProfile.name, 
       handle: userProfile.handle,
-      text: "",
+      text: tweetText,
       comments: 0,
       retweets: 0,
       likes: 0,
       id: 1,}
-     setTweets([[...tweets], newTweet])
+    console.log(newTweet.text)
+     setTweets([...tweets, newTweet])
+     setTweetText("")
     }
 
   return (
     <div className="tweet-box">
-      <TweetInput />
+      <TweetInput value={tweetText} handleOnChange={handleOnTweetTextChange} />
 
       <div className="tweet-box-footer">
         <TweetBoxIcons />

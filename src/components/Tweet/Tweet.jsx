@@ -4,6 +4,7 @@ import { formatLikes } from "../../utils/format"
 import "./Tweet.css"
 
 export default function Tweet({ tweet, key }) {
+  console.log(tweet.text)
   return (
     <div className="tweet" data-tweet-id={key}>
       <div className="tweet-avatar">
@@ -12,7 +13,7 @@ export default function Tweet({ tweet, key }) {
 
       <div className="tweet-content">
         <TweetUserInfo name={tweet.name} handle={tweet.handle}/>
-        <p className="tweet-text"></p>
+        <p className="tweet-text">{tweet.text}</p>
         <TweetFooter numComments={tweet.comments} numRetweets={tweet.retweets} numLikes={tweet.likes}/>
       </div>
     </div>
